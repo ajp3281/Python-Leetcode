@@ -6,22 +6,29 @@ class Solution:
         #keep pushing until count reached
         
         myMap = defaultdict(int)
+        
         for num in nums:
             myMap[num] += 1
-        
-        bucketarray = [[] for _ in range(len(nums)+1)]
-        
-        for key,val in myMap.items():
-            bucketarray[val].append(key)
             
+        matrix = [[] for i in range(len(nums)+1)]
+        
+        for number,value in myMap.items():
+            matrix[value].append(number)
+        
         res = []
         n = 0
-        for row in range(len(bucketarray)-1,-1,-1):
-            for num in bucketarray[row]:
-                res.append(num)
-                n += 1
-                if (n >= k):
-                    return res
+        
+        for row in range(len(matrix)-1,-1,-1):
+            for num in range(len(matrix[row])):
+                    res.append(matrix[row][num])
+                    n += 1
+                    if (n >= k):
+                        return res
+            
+        
+        
+        
+        
         
         
 
