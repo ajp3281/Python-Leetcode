@@ -6,16 +6,19 @@ class Solution:
         
         #  1        
         #  24    12    4   1
-        prefix = [1 for _ in range(len(nums))]
-        for index in range(1,len(nums)):
-            prefix[index] = prefix[index-1] * nums[index-1]
-        suffix = [1 for _ in range(len(nums))]
-        for i in range(len(nums)-2,-1,-1):
-            suffix[i] = suffix[i+1] * nums[i+1]
-        
+        res = [None] * len(nums)
+        product_so_far = 1
         for i in range(len(nums)):
-            prefix[i] *= suffix[i]
+            res[i] = product_so_far
+            product_so_far *= nums[i]
         
-        return prefix
+        product_so_far = 1
+        for i in range(len(nums)-1,-1,-1):
+            res[i] *= product_so_far
+            product_so_far *= nums[i]
+        
+        return res
+            
+        
         
         
