@@ -9,12 +9,7 @@ class Solution:
         
         #reverse rows
         for row in matrix:
-            l = 0
-            r = len(row)-1
-            while (l <= r):
-                row[l], row[r] = row[r], row[l]
-                l += 1
-                r -= 1
+            row.reverse()
                 
         """
         Do not return anything, modify matrix in-place instead.
