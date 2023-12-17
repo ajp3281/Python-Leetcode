@@ -3,13 +3,12 @@ class Solution:
         
         def backtrack(index, subset):
             
-            if index > len(nums):
+            if index >= len(nums):
+                res.append(subset.copy())
                 return
             
-            if index == len(nums):
-                res.append(subset.copy())
+            subset.append(nums[index])
             
-            subset.append(nums[index-1])
             backtrack(index+1,subset)
             subset.pop()
             backtrack(index+1,subset)
