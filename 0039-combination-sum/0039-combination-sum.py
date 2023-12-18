@@ -3,6 +3,7 @@ class Solution:
         # 
         res = []
         subset = []
+        
         def backtrack(index):
             
             if sum(subset) == target:
@@ -12,12 +13,13 @@ class Solution:
             if sum(subset) > target or index >= len(candidates):
                 return
             
-            subset.append(candidates[index-1])
+            subset.append(candidates[index])
             backtrack(index)
             subset.pop()
             backtrack(index+1)
             
         backtrack(0)
         return res
+            
             
         
