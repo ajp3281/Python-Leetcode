@@ -6,17 +6,18 @@ class Solution:
         
         def backtrack(index):
             
+            if sum(subset) > target:
+                return
+            
             if sum(subset) == target:
                 res.append(subset.copy())
                 return
             
-            if sum(subset) > target or index >= len(candidates):
-                return
-            
-            subset.append(candidates[index])
-            backtrack(index)
-            subset.pop()
-            backtrack(index+1)
+            for i in range(index,len(candidates)):
+                
+                subset.append(candidates[i])
+                backtrack(i)
+                subset.pop()
             
         backtrack(0)
         return res
