@@ -8,6 +8,7 @@ class Solution:
             while q:
                 currentrow, currentcol = q[0]
                 q.popleft()
+                visited.add((currentrow,currentcol))
                 
                 if (currentrow+1 < len(grid) and grid[currentrow+1][currentcol] == "1" and (currentrow+1,currentcol) not in visited):
                     q.append((currentrow+1,currentcol))
@@ -25,7 +26,6 @@ class Solution:
                     q.append((currentrow,currentcol-1))
                     visited.add((currentrow,currentcol-1))
                     
-                visited.add((currentrow,currentcol))
                 
                     
                 
