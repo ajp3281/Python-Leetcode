@@ -8,38 +8,38 @@ class Solution:
         
         if not list1 and not list2:
             return None
-        if not list1:
+        elif not list1:
             return list2
-        if not list2:
-            return list1 
+        elif not list2:
+            return list1
         
-        curr1 = list1
-        curr2 = list2
         
-        if curr1.val <= curr2.val:
-            result = curr1
-            curr1 = curr1.next
+        if list1.val < list2.val:
+            head = ListNode(list1.val)
+            list1 = list1.next
         else:
-            result = curr2
-            curr2 = curr2.next
-            
-        reshead = result
-        
-        while curr1 and curr2:
-            if curr1.val <= curr2.val:
-                result.next = curr1
-                curr1 = curr1.next
+            head = ListNode(list2.val)
+            list2 = list2.next
+           
+        current = head
+        while list1 and list2:
+            print(current.val)
+            if list1.val <= list2.val:
+                current.next = ListNode(list1.val)
+                current = current.next
+                list1 = list1.next
             else:
-                result.next = curr2
-                curr2 = curr2.next
-            result = result.next
-        
-        if not curr1:
-            result.next = curr2
-        
-        if not curr2:
-            result.next = curr1
-        
-        return reshead
+                current.next = ListNode(list2.val)
+                current = current.next
+                list2 = list2.next
                 
+        if not list2:
+            current.next = list1
+        else:
+            current.next = list2
+            
+        return head
+            
+            
+            
         
