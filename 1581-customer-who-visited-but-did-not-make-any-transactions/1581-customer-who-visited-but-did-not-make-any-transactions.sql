@@ -3,6 +3,6 @@ SELECT Visits.customer_id, COUNT(*) AS count_no_trans
 FROM Visits
 LEFT JOIN  Transactions
 ON Visits.visit_id = Transactions.visit_id
-WHERE Transactions.transaction_id is NULL
+WHERE Transactions.visit_id is NULL
 GROUP BY Visits.customer_id
 
