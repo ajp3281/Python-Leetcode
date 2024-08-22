@@ -1,19 +1,19 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        subset = []
-        def backtrack(index):
-            
-            if index == len(nums):
-                res.append(subset.copy())
+        
+        def helper(index, current):
+            if index >= len(nums):
+                res.append(current.copy())
                 return
                 
-            subset.append(nums[index])
-            backtrack(index+1)
-            subset.pop()
-            backtrack(index+1)
+            # take 
+            current.append(nums[index])
+            helper(index + 1, current)
+            # skip
+            current.pop()
+            helper(index + 1, current)
             
-        backtrack(0)
+            
+        res = []
+        helper(0, [])
         return res
-            
-            
