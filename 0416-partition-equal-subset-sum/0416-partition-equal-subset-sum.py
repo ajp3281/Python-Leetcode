@@ -7,9 +7,11 @@ class Solution:
         target = sum(nums) // 2
         
         def dfs(index, current, memo):
+            '''
             if current > target:
                 memo[(index, current)] = False
                 return False
+            '''
             
             if current == target:
                 memo[(index, current)] = True
@@ -23,10 +25,6 @@ class Solution:
                 return memo[(index, current)]
             
             include = dfs(index + 1, current + nums[index], memo)
-            if include:
-                memo[(index, current)] = include
-                return True
-            
             exclude = dfs(index + 1, current, memo)
             
             memo[(index, current)] = include or exclude
