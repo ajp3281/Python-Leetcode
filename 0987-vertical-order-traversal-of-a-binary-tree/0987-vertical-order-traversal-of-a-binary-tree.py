@@ -6,40 +6,31 @@
 #         self.right = right
 class Solution:
     def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
         
-        queue = deque()
-        Map = defaultdict(list)
-        
-        mincol = float('inf')
-        maxcol = float('-inf')
-        
-        queue.append((root,0,0))
-        
-        while queue:
-            current,curcol,currow = queue.popleft()
-            
-            if curcol > maxcol:
-                maxcol = curcol
-                
-            if curcol < mincol:
-                mincol = curcol
-            
-            Map[curcol].append((current.val,currow))
+        all_nodes_map = defaultdict(list)
+        min_col = float("inf")
+        max_col = float("-inf")
+        def dfs(current, row, col):
+            nonlocal min_col
+            nonlocal max_col
+            all_nodes_map[col].append((row, current.val))
+            if col < min_col:
+                min_col = col
+            if col > max_col:
+                max_col = col
             
             if current.left:
-                queue.append((current.left,curcol-1,currow+1))
-            
+                dfs(current.left, row + 1, col - 1)
             if current.right:
-                queue.append((current.right,curcol+1,currow+1))
-                
+                dfs(current.right, row+1, col + 1)
         
-        result = []
-        for i in range(mincol,maxcol+1):
-            sorted_tuples = sorted(Map[i], key=lambda x: (x[1],x[0]))
-            result.append([val for val,depth in sorted_tuples])
-        
-        return result
-                
+        dfs(root, 0, 0)
+        res = []
+        for i in range(min_col, max_col + 1):
+            if i in all_nodes_map:
+                current_col = all_nodes_map[i]
+                current_col.sort(key = lambda x:(x[0],x[1]))
+                print(current_col)
+                res.append([pos[1] for pos in current_col]) 
+        return res
         
