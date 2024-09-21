@@ -5,11 +5,13 @@ class Solution:
         for edge in edges:
             adj[edge[0]].append(edge[1])
             adj[edge[1]].append(edge[0])
-            
+        
+        '''
         if source == destination:
             return True
         if destination not in adj:
             return False
+        '''
             
         #print(adj[source])
             
@@ -23,6 +25,7 @@ class Solution:
             visited.add(current)
             for nei in adj[current]:
                 if nei not in visited:
+                    visited.add(nei)
                     q.append(nei)
                 
         return False
