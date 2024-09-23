@@ -32,8 +32,9 @@ class Solution:
                         
             return furthest_node, max_dist
         
-        furthest_node, max_dist = bfs(0)
-        print(furthest_node, max_dist)
+        furthest_node, max_dist = bfs(1)
+        print(bfs(0))
+        print(bfs(furthest_node))
         return bfs(furthest_node)[1]
                 
                         
