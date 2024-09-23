@@ -11,17 +11,15 @@ class Solution:
         min_heap = [(0, k)]
         visited = {}
         
-        visited[k] = 0
+    
         heapq.heapify(min_heap)
         
         while min_heap:
             current_cost, current_var = heapq.heappop(min_heap)
             
-            if current_var not in visited:
-                visited[current_var] = current_cost
-            elif current_var in visited and visited[current_var] > current_cost:
-                visited[current_var] = current_cost
-            
+            if current_var in visited:
+                continue
+            visited[current_var] = current_cost
             
             for neighbor, weight in adj[current_var]:
                 if neighbor not in visited:
