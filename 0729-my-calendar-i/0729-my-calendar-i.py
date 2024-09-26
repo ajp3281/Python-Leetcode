@@ -12,8 +12,8 @@ class MyCalendar:
             self.bookings.append((start, end))
             return True
         
-        sorted_intervals = sorted(self.bookings)
-        for interval in sorted_intervals:
+        #sorted_intervals = sorted(self.bookings)
+        for interval in self.bookings:
             if (start >= interval[0] and start < interval[1]) or (end > interval[0] and end <= interval[1]) or (start < interval[0] and end > interval[1]):
                 return False
         
