@@ -17,13 +17,7 @@ class UnionFind:
         par2 = self.find(n2)
         
         if par1 != par2:
-            if self.rank[par1] > self.rank[par2]:
-                self.par[par2] = par1
-            elif self.rank[par2] > self.rank[par1]:
-                self.par[par1] = par2
-            else:
-                self.par[par2] = par1
-                self.rank[par1] += 1
+            self.par[par2] = par1
     
 class Solution:
     def earliestAcq(self, logs: List[List[int]], n: int) -> int:
