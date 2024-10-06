@@ -28,6 +28,7 @@ class Solution:
         
         # 0 - 1 - 2
         # 3 - 4
+        '''
         uf = UnionFind()
         
         for edge in edges:
@@ -39,6 +40,33 @@ class Solution:
             
         print(components)
         return len(components)
+        '''
+        # for practice lets also implement it with dfs
+        # dfs from every node and visited set, try dfs from every node, if not in visited
+        # explore as much as possible and incremement component count
+        adj = {}
+        for i in range(n):
+            adj[i] = []
+            
+        for edge in edges:
+            adj[edge[0]].append(edge[1])
+            adj[edge[1]].append(edge[0])
+            
+        def dfs(current):
+            visited.add(current)
+            for nei in adj[current]:
+                if nei not in visited:
+                    dfs(nei) 
+            return
+        
+        components = 0
+        visited = set()
+        for i in range(n):
+            if i not in visited:
+                dfs(i)
+                components += 1
+                
+        return components
             
             
         
