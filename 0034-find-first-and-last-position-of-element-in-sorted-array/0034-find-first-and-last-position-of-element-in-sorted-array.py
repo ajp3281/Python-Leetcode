@@ -1,41 +1,35 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # can we just do 2 binary searches, one to find first index of target
+        # one to find last index of target
         
-        # 2x binary search, one for low of range and one for higher end of range
-        
-        def find_left():
-            low = 0
-            high = len(nums)-1
-            
-            while low <= high:
-                mid = low + ((high - low)//2)
-                print(low, mid, high)
-                if nums[mid] == target:
-                    high = mid - 1
-                elif nums[mid] > target:
-                    high = mid - 1
-                else:
-                    low = mid + 1
-                    
-            return low
-        
-        def find_right():
-            low = 0
-            high = len(nums)-1
-            while low <= high:
-                mid = low + ((high - low) // 2)
-                print(low, mid, high)
-                if nums[mid] == target:
-                    low = mid + 1
-                elif nums[mid] > target:
-                    high = mid - 1
-                else:
-                    low = mid + 1
-            return high
-        if len(nums) == 0:
-            return [-1,-1]
-        if find_right() < find_left():
-            return [-1,-1]
-        return ([find_left(), find_right()])
+        left = 0
+        right = len(nums)-1
+        t1,t2 = -1, -1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target and ((mid != 0 and nums[mid-1] != target) or mid == 0):
+                t1 = mid
                 
+            if nums[mid] >= target:
+                right = mid - 1
+            
+            if nums[mid] < target:
+                left = mid + 1
+        print(t1)        
+        left = 0
+        right = len(nums)-1
         
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target and ((mid != len(nums)-1 and nums[mid+1] != target) or mid == len(nums)-1):
+                t2 = mid
+                
+            if nums[mid] > target:
+                right = mid - 1
+            
+            if nums[mid] <= target:
+                left = mid + 1
+        print(t2)
+        return [t1,t2]
