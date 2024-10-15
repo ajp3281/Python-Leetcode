@@ -10,7 +10,6 @@ class Solution:
         res = 0
         
         while left >= 0:
-            print(left, right)
             if s[left] == "1":
                 res += right - left
                 right -= 1
