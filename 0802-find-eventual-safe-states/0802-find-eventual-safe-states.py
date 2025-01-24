@@ -10,7 +10,6 @@ class Solution:
         def dfs(i):
             if len(graph[i]) == 0:
                 isSafe[i] = True
-                visited.add(i)
                 return isSafe[i]
 
             if i in isSafe:
@@ -22,7 +21,6 @@ class Solution:
                 if not dfs(nei):
                     isSafe[i] = False
                     return isSafe[i]
-            visited.add(i)
             isSafe[i] = True
             return isSafe[i]
 
