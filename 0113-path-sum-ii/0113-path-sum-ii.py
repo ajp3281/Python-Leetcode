@@ -24,6 +24,8 @@ class Solution:
                 dfs(current.right, current_sum + current.val, path)
                 path.pop()
 
+        if not root:
+            return []
         dfs(root, 0, [])
         return res
 
