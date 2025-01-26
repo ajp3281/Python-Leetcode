@@ -1,25 +1,20 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
-        trustset = defaultdict(list)
-        trustedset = defaultdict(list)
-        for i in range(len(trust)):
-            #if trust[i][1] not in trustedset:
-            trustedset[trust[i][1]].append(trust[i][0])
-            trustset[trust[i][0]].append(trust[i][1])
-                
-        print(trustedset)
-        print(trustset)
-                
-        
-        for i in range(1,n+1):
-            if i not in trustset:
-                if len(trustedset[i]) == n-1:
-                    return i 
-                
+
+        # count in_deg and make sure no outgoing edges from target
+        in_deg = {}
+        adj = {}
+        for i in range(1, n+1):
+            adj[i] = 0
+            in_deg[i] = 0
+
+        for a,b in trust:
+            adj[a] += 1
+            in_deg[b] += 1
+
+        for i in range(1, n + 1):
+            if adj[i] == 0 and in_deg[i] == n-1:
+                return i
         return -1
-        
-        
-        
-        
-            
+
         
