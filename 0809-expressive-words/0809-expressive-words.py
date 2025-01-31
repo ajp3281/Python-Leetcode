@@ -26,11 +26,11 @@ class Solution:
             return True
         
         res = 0
-        map_1 = Counter(s)
+        #map_1 = Counter(s)
         for word in words:
-            map_2 = Counter(word)
-            if len(map_1.keys()) != len(map_2.keys()):
-                continue
+            #map_2 = Counter(word)
+            #if len(map_1.keys()) != len(map_2.keys()):
+            #    continue
             res += checkExpressiveness(s, word)
         return res
 
