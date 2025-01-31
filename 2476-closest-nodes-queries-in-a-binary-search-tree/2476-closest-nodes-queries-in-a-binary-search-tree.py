@@ -33,9 +33,9 @@ class Solution:
                 if r - l == 1:
                     break
                 if nodes[mid] < target:
-                    l = mid
+                    l = mid 
                 else:
-                    r = mid 
+                    r = mid
             
             if nodes[r] == target:
                 return [nodes[r], nodes[r]]
