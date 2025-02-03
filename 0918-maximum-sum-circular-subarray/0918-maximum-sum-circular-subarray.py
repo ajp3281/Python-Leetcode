@@ -16,11 +16,7 @@ class Solution:
             maxsum = max(maxsum, cursum)
             minsum = min(minsum, curminsum)
             totalsum += nums[r]
-            print(curminsum, minsum)
 
-        print(maxsum, minsum, totalsum)
-        if minsum == totalsum:
-            return maxsum
-        
-        # 3 - -5
+        if totalsum == minsum:
+            return maxsum 
         return max(totalsum - minsum, maxsum)
