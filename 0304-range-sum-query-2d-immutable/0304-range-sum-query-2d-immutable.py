@@ -1,23 +1,28 @@
 class NumMatrix:
-    # prefix for every row
-    # result += col2 - (col1 - 1) for every row in range 
+
     def __init__(self, matrix: List[List[int]]):
-        self.prematrix = []
-        for row in range(len(matrix)):
-            current_row = [matrix[row][0]]
-            for col in range(1, len(matrix[row])):
-                current_row.append(current_row[-1] + matrix[row][col])
-            self.prematrix.append(current_row)
+        self.prefix = [[0] * (len(matrix[0]) + 1) for _ in range(len(matrix) + 1)]
+
+        for r in range(1, len(self.prefix)):
+            rowsum = 0
+            for c in range(1, len(self.prefix[0])):
+                rowsum += matrix[r-1][c-1]
+                above = self.prefix[r-1][c]
+                self.prefix[r][c] = rowsum + above
+
+
+
+        
 
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
-        res = 0
-        for row in range(row1, row2 + 1):
-            if col1 > 0:
-                res += self.prematrix[row][col2] - self.prematrix[row][col1 - 1]
-            else:
-                res += self.prematrix[row][col2]
+        targetval = self.prefix[row2+1][col2+1]
+        left = self.prefix[row2 + 1][col1]
+        above = self.prefix[row1][col2 + 1]
+        duplicated = self.prefix[row1][col1]
+        print(targetval, left, above, duplicated)
+        return targetval - left - above + duplicated
+        
 
-        return res
 
 # Your NumMatrix object will be instantiated and called as such:
 # obj = NumMatrix(matrix)
