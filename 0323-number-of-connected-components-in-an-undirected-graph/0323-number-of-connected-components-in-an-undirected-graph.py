@@ -34,7 +34,9 @@ class Solution:
 
         for edge in edges:
             uf.union(edge[0], edge[1])
+        
+        for node in uf.par:
+            uf.par[node] = uf.find(node)
 
-        print(uf.par)
         return len(set(uf.par.values()))
         
