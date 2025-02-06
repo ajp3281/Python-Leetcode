@@ -12,9 +12,11 @@ class Solution:
             
             # repeat same number
             current.append(candidates[index])
-            helper(index, current, count + candidates[index])
+            count += candidates[index]
+            helper(index, current, count)
             # remove current and try next
             current.pop()
+            count -= candidates[index]
             helper(index + 1, current, count)
         
         
