@@ -17,6 +17,8 @@ class UnionFind:
     def union(self, n1, n2):
         par1, par2 = self.find(n1), self.find(n2)
 
+        if par1 == par2:
+            return False
         if self.rank[par1] > self.rank[par2]:
             self.par[par2] = par1
             self.rank[par1] += 1
@@ -26,17 +28,17 @@ class UnionFind:
         else:
             self.par[par2] = par1
             self.rank[par1] += 1
+        return True
 
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
 
         uf = UnionFind(n)
-
+        res = n
+        # res = 4
         for edge in edges:
-            uf.union(edge[0], edge[1])
+            if uf.union(edge[0], edge[1]):
+                res -= 1
         
-        for node in uf.par:
-            uf.par[node] = uf.find(node)
-
-        return len(set(uf.par.values()))
+        return res
         
