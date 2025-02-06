@@ -1,73 +1,40 @@
 class UnionFind:
-    def __init__(self):
+    def __init__(self, n):
         self.par = {}
-    
-    def find(self, node):
-        if node not in self.par:
-            self.par[node] = node
-            return node
-        
-        if self.par[node] == node:
-            return node
-        self.par[node] = self.find(self.par[node])
-        return self.par[node]
-        
-    def union(self, node1, node2):
-        par1 = self.find(node1)
-        par2 = self.find(node2)
-        
-        if par1 != par2:
+        self.rank = {}
+
+        for i in range(n):
+            self.par[i] = i
+            self.rank[i] = 0
+
+    def find(self, n):
+        if self.par[n] == n:
+            return n
+        par = self.par[n]
+        self.par[n] = self.find(par)
+        return self.par[n]
+
+    def union(self, n1, n2):
+        par1, par2 = self.find(n1), self.find(n2)
+
+        if self.rank[par1] > self.rank[par2]:
+            self.par[par2] = par1
+            self.rank[par1] += 1
+        elif self.rank[par1] < self.rank[par2]:
             self.par[par1] = par2
-        
+            self.rank[par2] += 1
+        else:
+            self.par[par2] = par1
+            self.rank[par1] += 1
 
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        
-        # classic union find 
-        # build parents graph and count how many unique parents there are
-        
-        # 0 - 1 - 2
-        # 3 - 4
-        '''
-        uf = UnionFind()
-        
+
+        uf = UnionFind(n)
+
         for edge in edges:
             uf.union(edge[0], edge[1])
-            
-        components = set()
-        for i in range(n):
-            components.add(uf.find(i))
-            
-        print(components)
-        return len(components)
-        '''
-        # for practice lets also implement it with dfs
-        # dfs from every node and visited set, try dfs from every node, if not in visited
-        # explore as much as possible and incremement component count
-        adj = {}
-        for i in range(n):
-            adj[i] = []
-            
-        for edge in edges:
-            adj[edge[0]].append(edge[1])
-            adj[edge[1]].append(edge[0])
-            
-        def dfs(current):
-            visited.add(current)
-            for nei in adj[current]:
-                if nei not in visited:
-                    dfs(nei) 
-            return
-        
-        components = 0
-        visited = set()
-        for i in range(n):
-            if i not in visited:
-                dfs(i)
-                components += 1
-                
-        return components
-            
-            
-        
+
+        print(uf.par)
+        return len(set(uf.par.values()))
         
