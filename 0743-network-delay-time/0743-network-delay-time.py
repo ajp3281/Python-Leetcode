@@ -1,29 +1,30 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-
-        # djikstras, see how long it takes to visit every node
-        # keep track of costs and return max 
-        adj = defaultdict(list)
-        costs = defaultdict(int)
-        for time in times:
-            adj[time[0]].append((time[1], time[2]))
         
-        heap = [(0,0,k)]
+        adj = defaultdict(list)
+
+        for time in times:
+            adj[time[0]].append((time[2],time[1]))
+
+        heap = [(0, k)]
         heapq.heapify(heap)
+        costs = {}
 
-        # how to avoid adding
+        max_cost = float("-inf")
         while heap:
-            current_cost, dist, node = heapq.heappop(heap)
+            cur_cost, cur_node = heapq.heappop(heap)
 
-            costs[node] = current_cost
+            if cur_node in costs:
+                continue
 
-            for nei, nei_cost in adj[node]:
-                new_cost = current_cost + nei_cost
-                if nei not in costs or new_cost < costs[nei]:
-                    heapq.heappush(heap,(new_cost, dist + 1, nei))
+            costs[cur_node] = cur_cost
+            max_cost = max(cur_cost, max_cost)
 
-        if len(costs) != n:
-            return -1
-        return max(costs.values())
+            if len(costs) == n:
+                return max_cost
 
+            for nei_cost, nei in adj[cur_node]:
+                heapq.heappush(heap, (cur_cost + nei_cost, nei))
 
+        print(costs)
+        return -1
