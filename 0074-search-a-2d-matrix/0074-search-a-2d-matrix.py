@@ -1,36 +1,46 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        
-         
-        
-        lcol = 0
-        rcol = len(matrix)-1
-        
-        while lcol <= rcol:
-            midcol = (lcol + rcol)//2
+        # first find row it exists in
+        # then binary search the column
 
-            if target >= matrix[midcol][0] and target <= matrix[midcol][len(matrix[0])-1]:
-                break
-            
-            if target > matrix[midcol][len(matrix[0])-1]:
-                lcol = midcol+1
-                
-            if target < matrix[midcol][0]:
-                rcol = midcol-1
-                
-        
+        # check if its less than 1st val of mid row, or greater than last val of mid row
+
         l = 0
-        r = len(matrix[midcol])-1
-        
+        r = len(matrix)-1
+        flag = False
+
         while l <= r:
-            mid = (l+r)//2
-            if target > matrix[midcol][mid]:
-                l = mid+1
-            elif target < matrix[midcol][mid]:
-                r = mid-1
+            
+            mid = (r + l) // 2
+
+            if target >= matrix[mid][0] and target <= matrix[mid][-1]:
+                flag = True
+                break
+
+            if target > matrix[mid][-1]:
+                l = mid + 1
             else:
+                r = mid - 1
+
+        # how can we verify we found 
+        if not flag:
+            return False
+
+        l = 0
+        r = len(matrix[0])
+
+        while l <= r:
+
+            middle = (r+l) // 2
+
+            if matrix[mid][middle] == target:
                 return True
-        
+            
+            if target > matrix[mid][middle]:
+                l = middle + 1
+            else:
+                r = middle - 1
+
         return False
-                
-        
+
+            
