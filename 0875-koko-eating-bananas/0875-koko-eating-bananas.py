@@ -1,46 +1,36 @@
+import math
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
         
-        def canEat(piles,n,h):
+        # boolean search to see if koko can eat all bananas at current x speed
+
+        def canEat(current):
+            piles_copy = piles.copy()
             
-            i = 0
-            res = 0
-            while i < len(piles):
-                if n > piles[i]:
-                    res += 1
-                else:
-                    res += ceil(piles[i]/n)
-                i += 1
-                    
-            
-            #print(res)
-            if res <= h:
+            cur_time = 0
+            for banana in piles_copy:
+
+                cur_time += math.ceil(banana / current)
+
+            if cur_time <= h:
                 return True
             return False
+
+
+        left = 1
+        right = max(piles)
+
+
         
-        l = 1
-        r = max(piles)
-        
-        if len(piles) == 1 and h > piles[0]:
-            return 1
-        
-        while l <= r:
-            mid = (l+r)//2
-            print(mid)
-            
-            
-            if canEat(piles,mid,h) == True:
-                r = mid-1
-            
-            elif canEat(piles,mid,h) == False:
-                l = mid+1
-            
-        return l
-    
-        
-        
-            
-            
-            
-            
+        while left < right:
+
+            mid = (right + left) // 2
+
+            # we need leftmost val
+            if canEat(mid):
+                right = mid
+            else:
+                left = mid + 1
+
+        return left
         
